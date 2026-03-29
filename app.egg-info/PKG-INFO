@@ -9,6 +9,11 @@ Requires-Dist: mcp[cli]>=1.8.0
 Requires-Dist: prompt-toolkit>=3.0.51
 Requires-Dist: python-dotenv>=1.1.0
 
+# Introduction
+This project is based on Anthropic academy's Introduction to Model Context Protocol course
+
+Link - https://anthropic.skilljar.com/introduction-to-model-context-protocol
+
 # MCP Chat
 
 MCP Chat is a command-line interface application that enables interactive chat capabilities with AI models through the Anthropic API. The application supports document retrieval, command-based prompts, and extensible tool integrations via the MCP (Model Control Protocol) architecture.
@@ -22,11 +27,38 @@ MCP Chat is a command-line interface application that enables interactive chat c
 
 ### Step 1: Configure the environment variables
 
-1. Create or edit the `.env` file in the project root and verify that the following variables are set correctly:
+1. Copy `.env.example` to `.env` and set your Anthropic API key:
 
+```bash
+cp .env.example .env
+# Edit .env and set ANTHROPIC_API_KEY
 ```
-ANTHROPIC_API_KEY=""  # Enter your Anthropic API secret key
+
+2. Ensure `.env` is ignored by Git (`.gitignore` already includes .env).
+
+3. Run the local secret scanner before committing:
+
+```bash
+python scripts/secret_scan.py
 ```
+
+### Secret scanning policy
+
+- Never store real API keys in source-controlled files.
+- For CI checks, add the scanner to your GitHub Actions or pre-commit hook.
+
+  Example pre-commit entry (optional):
+
+  ```yaml
+  repos:
+    - repo: local
+      hooks:
+        - id: secret-scan
+          name: secret-scan
+          entry: python scripts/secret_scan.py
+          language: system
+          types: [file]
+  ```
 
 ### Step 2: Install dependencies
 
