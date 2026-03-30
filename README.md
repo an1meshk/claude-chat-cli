@@ -1,5 +1,5 @@
 # Introduction
-This project is based on Anthropic academy's Introduction to Model Context Protocol course
+This project is based on startup kit from Anthropic academy's Introduction to Model Context Protocol course
 
 Link - https://anthropic.skilljar.com/introduction-to-model-context-protocol
 
