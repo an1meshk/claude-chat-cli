@@ -14,6 +14,13 @@ docs = {
     "spec.txt": "These specifications define the technical requirements for the equipment.",
 }
 
+#tool to read a doc
+@mcp.tool(
+    name="list_all_docs",
+    description="List all available documents."
+)
+def list_documents():
+    return list(docs.keys())
 
 #tool to read a doc
 @mcp.tool(
