@@ -1,8 +1,8 @@
 # Introduction
-This project is based on startup kit from Anthropic academy's Introduction to Model Context Protocol course and Model Context Protocol: Advanced Topics course
+This project is based on startup kit from Anthropic academy's [Introduction to Model Context Protocol](https://anthropic.skilljar.com/introduction-to-model-context-protocol) and following courses
 
-- [Introduction to Model Context Protocol](https://anthropic.skilljar.com/introduction-to-model-context-protocol)
 - [Model Context Protocol: Advanced Topics](https://anthropic.skilljar.com/model-context-protocol-advanced-topics)
+- [Introduction to agent skills](https://anthropic.skilljar.com/introduction-to-agent-skills)
 
 # MCP Chat
 
