@@ -3,10 +3,11 @@ import sys
 import asyncio
 from typing import Optional, Any
 from contextlib import AsyncExitStack
-from unittest import result
 from mcp import ClientSession, StdioServerParameters, types
 from mcp.client.stdio import stdio_client
 from pydantic import AnyUrl
+from mcp.types import LoggingMessageNotificationParams
+from prompt_toolkit.application import run_in_terminal
 
 
 class MCPClient:
@@ -33,7 +34,7 @@ class MCPClient:
         )
         _stdio, _write = stdio_transport
         self._session = await self._exit_stack.enter_async_context(
-            ClientSession(_stdio, _write)
+            ClientSession(_stdio, _write, logging_callback=self.logging_callback)
         )
         await self._session.initialize()
 
@@ -51,7 +52,7 @@ class MCPClient:
     async def call_tool(
         self, tool_name: str, tool_input: dict
     ) -> types.CallToolResult | None:
-        return await self.session().call_tool(tool_name, tool_input)
+        return await self.session().call_tool(tool_name, tool_input, progress_callback=self.print_progress_callback)
 
     async def list_prompts(self) -> list[types.Prompt]:
         result = await self.session().list_prompts()
@@ -81,6 +82,24 @@ class MCPClient:
 
     async def __aexit__(self, exc_type, exc_val, exc_tb):
         await self.cleanup()
+
+    async def logging_callback(
+            self, params: LoggingMessageNotificationParams):
+        await run_in_terminal(lambda: print(params.data))
+
+    async def print_progress_callback(
+        self, progress: float, total: float | None, message: str | None
+    ):
+        if total is not None:
+            percent = progress / total
+            bar_length = 20
+            filled = int(bar_length * percent)
+            bar = '█' * filled + '░' * (bar_length - filled)
+            await run_in_terminal(lambda: print(f"\r[{bar}] {percent:.1%}", end="", flush=True))
+            if total is not None and abs(progress - total) < 1e-9:
+                await run_in_terminal(lambda: print())  # New line when complete
+        else:
+            await run_in_terminal(lambda: print(f"Progress: {progress}"))
 
 
 # For testing

@@ -1,8 +1,9 @@
 from pydantic import Field
-from mcp.server.fastmcp import FastMCP
+from mcp.server.fastmcp import FastMCP, Context
 from mcp.server.fastmcp.prompts import base
+import asyncio
 
-mcp = FastMCP("DocumentMCP", log_level="ERROR")
+mcp = FastMCP("DocumentMCP", log_level="WARNING")
 
 
 docs = {
@@ -14,7 +15,7 @@ docs = {
     "spec.txt": "These specifications define the technical requirements for the equipment.",
 }
 
-#tool to read a doc
+#tool to list all docs
 @mcp.tool(
     name="list_all_docs",
     description="List all available documents."
@@ -27,12 +28,18 @@ def list_documents():
     name="read_doc_contents",
     description="Read the contents of a document and return it as a string."
 )
-def read_document(
+async def read_document(
+    ctx: Context,
     doc_id: str = Field(description="Id of the document to read")
 ):
+    await ctx.info(f"Cooking call_tool")
+    await ctx.report_progress(40,100)
     if doc_id not in docs:
         raise ValueError(f"Doc with id {doc_id} not found")
     
+    await ctx.report_progress(60,100)
+    await asyncio.sleep(2)
+    await ctx.report_progress(100,100)
     return docs[doc_id]
 
 #tool to edit a doc
@@ -63,9 +70,13 @@ def list_docs() -> list[str]:
     "docs://documents/{doc_id}",
     mime_type="text/plain"
 )
-def fetch_doc(doc_id: str) -> str:
+async def fetch_doc(ctx: Context, doc_id: str) -> str:
+    await ctx.info(f"Cooking resource")
+    await ctx.report_progress(40,100)
     if doc_id not in docs:
         raise ValueError(f"Doc with id {doc_id} not found")
+    await ctx.report_progress(60,100)
+    await ctx.report_progress(100,100)
     return docs[doc_id]
 
 #prompt to rewrite a doc in markdown format

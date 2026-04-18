@@ -1,0 +1,13 @@
+README.md
+pyproject.toml
+core/__init__.py
+core/chat.py
+core/claude.py
+core/cli.py
+core/cli_chat.py
+core/tools.py
+mcp_app.egg-info/PKG-INFO
+mcp_app.egg-info/SOURCES.txt
+mcp_app.egg-info/dependency_links.txt
+mcp_app.egg-info/requires.txt
+mcp_app.egg-info/top_level.txt
