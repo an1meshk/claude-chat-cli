@@ -9,7 +9,13 @@ MCP Chat is a command-line interface application that enables interactive chat c
 
 ## Demo
 
+### MCP Demo
+
 ![MCP Demo](demo/demo.gif)
+
+### Skills Demo
+
+![Skills Demo](demo/skills-demo.gif)
 
 ## Prerequisites
 
