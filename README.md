@@ -22,6 +22,10 @@ MCP Chat is a command-line interface application that enables interactive chat c
 
 ![Logging and Notification Demo](demo/logging-notification-demo.gif)
 
+### Subagent Demo
+
+![Subagent Demo](demo/subagent-demo.gif)
+
 ## Prerequisites
 
 - Python 3.9+
