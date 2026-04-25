@@ -7,7 +7,7 @@ description: >
   my code", "check this before I push", "check this before I commit", "any issues with this?", "pre-commit review", 
   or "is this production-ready?". Also trigger when the user pastes Python code and
   asks for general feedback, even without explicitly using the word "review". Always
-  use this skill for any Python code quality, correctness, or style check.
+  use this skill for any Python code quality, correctness, or style check. For full codebase reviews spanning multiple files, defer to the code-quality-reviewer agent instead.
 ---
 
 # Code Review Skill (Python)
